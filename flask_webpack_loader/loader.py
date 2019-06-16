@@ -35,7 +35,8 @@ class WebpackLoader(object):
 
        app.add_template_global(self.render_bundle)
        app.add_template_global(self.render_static)
-       app.add_template_global(self.render_entrypoint)
+       # render_entry is the same used by the django fork adding entrypoints
+       app.add_template_global(self.render_entrypoint, name='render_entry')
 
     @staticmethod
     def _filter_by_extension(bundle, extension):

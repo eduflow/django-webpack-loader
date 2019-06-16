@@ -10,15 +10,15 @@ def rel(*parts):
 
 README = open('README.md', 'r').read()
 
-with open(rel('webpack_loader', '__init__.py')) as handler:
+with open(rel('flask_webpack_loader', '__init__.py')) as handler:
     INIT_PY = handler.read()
 
 
 VERSION = re.findall("__version__ = '([^']+)'", INIT_PY)[0]
 
 setup(
-  name = 'django-webpack-loader',
-  packages = ['webpack_loader', 'webpack_loader/templatetags', 'webpack_loader/contrib'],
+  name = 'flask-webpack-loader',
+  packages = ['flask_webpack_loader'],
   version = VERSION,
   description = 'Transparently use webpack with django',
   long_description=README,

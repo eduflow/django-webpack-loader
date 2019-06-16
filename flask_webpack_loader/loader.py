@@ -116,7 +116,6 @@ class WebpackLoader(object):
                             '<link type="text/css" href="{0}" rel="stylesheet" {1}/>'
                             ).format(chunk['url'], attrs)
                         )
-                return '\n'.join(tags)
         return '\n'.join(tags)
 
 
@@ -138,11 +137,13 @@ class WebpackLoader(object):
         return self._load_assets()
 
     def filter_chunks(self, chunks):
+        new_chunks = []
         for chunk in chunks:
             ignore = any(regex.match(chunk['name']) for regex in self.config.get('IGNORES', []))
             if not ignore:
                 chunk['url'] = self.get_chunk_url(chunk)
-                yield chunk
+                new_chunks.append(chunk)
+        return new_chunks
 
     def get_chunk_url(self, chunk):
         public_path = chunk.get('publicPath')
@@ -236,7 +237,6 @@ class WebpackLoader(object):
                 raise WebpackBundleLookupError('No entrypoints were found in the stats file. Make sure you '
                                                'are using a supported version of webpack and double check '
                                                'your webpack configuration.'.format(entry_name))
-
             return self.filter_chunks(entry_files_flat)
         elif assets.get('status') == 'error':
             if 'file' not in assets:

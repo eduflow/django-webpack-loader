@@ -116,6 +116,7 @@ class WebpackLoader(object):
                             ).format(chunk['url'], attrs)
                         )
                 return '\n'.join(tags)
+        return '\n'.join(tags)
 
 
     def _load_assets(self):
